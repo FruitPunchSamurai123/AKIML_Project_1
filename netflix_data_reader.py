@@ -27,8 +27,7 @@ class NetflixReader:
 
 
     def read_netflix_data(self, file_path: str):
-        loaded_csv = pd.read_csv(file_path,sep="<")
-        return loaded_csv
+        self.netflix_data_raw = pd.read_csv(file_path,sep="<")
 
     def preprocess(self):
         self.netflix_data_raw.drop(columns="seasons", inplace=True)

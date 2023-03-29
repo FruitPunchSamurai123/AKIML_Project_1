@@ -25,6 +25,7 @@ class NetflixReader:
     def set_data_split_ratio(self, new_split_ratios: dict):
         pass
 
+
     def read_netflix_data(self, file_path: str):
         loaded_csv = pd.read_csv(file_path,sep="<")
         return loaded_csv

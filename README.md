@@ -1,7 +1,6 @@
 # AKIML_Project_1
 
 ## Aufgabenverteilung
-
 Niklas: _drop_missing_values\
 Philipp: _set_types\
 Selim: _convert_list_to_bool\

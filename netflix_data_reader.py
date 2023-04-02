@@ -25,9 +25,8 @@ class NetflixReader:
     def set_data_split_ratio(self, new_split_ratios: dict):
         pass
 
-
     def read_netflix_data(self, file_path: str):
-        self.netflix_data_raw = pd.read_csv(file_path,sep=">")
+        self.netflix_data_raw = pd.read_csv(file_path, sep=">")
 
     def preprocess(self):
         self.netflix_data_raw.drop(columns="seasons", inplace=True)
@@ -44,7 +43,7 @@ class NetflixReader:
         pass
 
     def _drop_missing_values(self):
-        pass
+        self.netflix_data = self.netflix_data_raw.dropna()
 
     def _set_types(self):
         pass
@@ -61,4 +60,3 @@ class NetflixReader:
 
     def _is_data_leakage(self):
         pass
-

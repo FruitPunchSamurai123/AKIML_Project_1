@@ -46,7 +46,7 @@ class NetflixReader:
         self.netflix_data = self.netflix_data_raw.dropna()
 
     def _set_types(self):
-        pass
+        self.netflix_data = self.netflix_data.astype(self._type_dict)
 
     @staticmethod
     def _convert_string_to_list(str_list: str):

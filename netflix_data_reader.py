@@ -53,7 +53,10 @@ class NetflixReader:
         pass
 
     def _convert_list_do_bool(self, column_to_distribute: str):
-        pass
+        genre_dummies = self.netflix_data[column_to_distribute].str.get_dummies(sep="'")
+        genre_dummies.columns = genre_dummies.columns.str.replace(" ", "")
+        genre_dummies.drop(columns=[",", "[]", "]", "["], inplace=True)
+        self.netflix_data = pd.concat([self.netflix_data_raw, genre_dummies])
 
     def _split_data(self):
         pass

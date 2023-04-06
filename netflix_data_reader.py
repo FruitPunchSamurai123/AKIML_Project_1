@@ -53,6 +53,13 @@ class NetflixReader:
         pass
 
     def _convert_list_do_bool(self, column_to_distribute: str):
+        """
+        This function splits a column into multiple columns of each value in the dataframe. These columns
+        then contain only boolean values. if the previous row contained the specific value the new column will .
+        return true.
+        :param column_to_distribute: name of the column that should be split
+        :return:
+        """
         genre_dummies = self.netflix_data[column_to_distribute].str.get_dummies(sep="'")
         genre_dummies.columns = genre_dummies.columns.str.replace(" ", "")
         genre_dummies.drop(columns=[",", "[]", "]", "["], inplace=True)

@@ -40,7 +40,14 @@ class NetflixReader:
         self.data_leakage_warning = self._is_data_leakage()
 
     def write_netflix_data(self, file_path: str):
-        pass
+        """Stores the test, train and validation dataframes in a pickle file.
+
+            Keyword arguments:
+            file_path -- the intended location where the pickle files will be placed
+            """
+        self.test_data.to_pickle(file_path + '/test.pickle')
+        self.train_data.to_pickle(file_path + '/train.pickle')
+        self.val_data.to_pickle(file_path + '/val.pickle')
 
     def _drop_missing_values(self):
         self.netflix_data = self.netflix_data_raw.dropna()
@@ -66,16 +73,16 @@ class NetflixReader:
         self.netflix_data = pd.concat([self.netflix_data_raw, genre_dummies])
 
     def _split_data(self):
-        #shuffle the rows so that the data is not ordered by any column
+        # shuffle the rows so that the data is not ordered by any column
         data_shuffled = self.netflix_data_raw.sample(frac=1)
 
-        #calculate the number of rows for each split based on the split ratios
+        # calculate the number of rows for each split based on the split ratios
         train_rows = int(data_shuffled.shape[0] * self._data_split_ratios["train"])
         val_rows = int(data_shuffled.shape[0] * self._data_split_ratios["val"])
         test_rows = int(data_shuffled.shape[0] * self._data_split_ratios["test"])
 
-        #take the rows acording to the split ratios and fill the dataframes
-        self.train_data = data_shuffled.iloc[:train_rows]   
+        # take the rows acording to the split ratios and fill the dataframes
+        self.train_data = data_shuffled.iloc[:train_rows]
         self.val_data = data_shuffled.iloc[train_rows:train_rows + val_rows]
         self.test_data = data_shuffled.iloc[train_rows + val_rows:]
 

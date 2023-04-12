@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 class NetflixReader:
     def __init__(self):
         self.netflix_data_raw = pd.DataFrame()
@@ -70,11 +69,11 @@ class NetflixReader:
         genre_dummies = self.netflix_data[column_to_distribute].str.get_dummies(sep="'")
         genre_dummies.columns = genre_dummies.columns.str.replace(" ", "")
         genre_dummies.drop(columns=[",", "[]", "]", "["], inplace=True)
-        self.netflix_data = pd.concat([self.netflix_data_raw, genre_dummies])
+        self.netflix_data = pd.concat([self.netflix_data, genre_dummies], axis=1)
 
     def _split_data(self):
         # shuffle the rows so that the data is not ordered by any column
-        data_shuffled = self.netflix_data_raw.sample(frac=1)
+        data_shuffled = self.netflix_data.sample(frac=1)
 
         # calculate the number of rows for each split based on the split ratios
         train_rows = int(data_shuffled.shape[0] * self._data_split_ratios["train"])
@@ -96,4 +95,3 @@ class NetflixReader:
         self.data_leakage_warning = bool(overlap_ids)
 
         return self.data_leakage_warning
-

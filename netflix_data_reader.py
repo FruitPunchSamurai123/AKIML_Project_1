@@ -50,6 +50,9 @@ class NetflixReader:
         self.val_data.to_pickle(file_path + '/val.pickle')
 
     def _drop_missing_values(self):
+        """
+        Drops all columns where a value is null and writes it to netflix_data.
+        """
         self.netflix_data = self.netflix_data_raw.dropna()
 
     def _set_types(self):

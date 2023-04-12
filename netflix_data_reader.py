@@ -80,7 +80,7 @@ class NetflixReader:
         val_rows = int(data_shuffled.shape[0] * self._data_split_ratios["val"])
         test_rows = int(data_shuffled.shape[0] * self._data_split_ratios["test"])
 
-        # take the rows acording to the split ratios and fill the dataframes
+        # take the rows according to the split ratios and fill the dataframes
         self.train_data = data_shuffled.iloc[:train_rows]
         self.val_data = data_shuffled.iloc[train_rows:train_rows + val_rows]
         self.test_data = data_shuffled.iloc[train_rows + val_rows:]

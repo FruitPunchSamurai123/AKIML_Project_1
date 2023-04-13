@@ -22,6 +22,8 @@ class NetflixReader:
         self.data_leakage_warning = False
 
     def set_data_split_ratio(self, new_split_ratios: dict):
+        assert sum(new_split_ratios.values()) == 1, "The sum of the split ratios must be 1."
+        """Sets the split ratios for the data. Available keys are "train", "val" and "test". The sum of the values must be 1."""
         self._data_split_ratios = new_split_ratios
 
     def read_netflix_data(self, file_path: str):
@@ -72,6 +74,8 @@ class NetflixReader:
         self.netflix_data = pd.concat([self.netflix_data, genre_dummies], axis=1)
 
     def _split_data(self):
+        """Splits the data into train, validation and test dataframes."""
+
         # shuffle the rows so that the data is not ordered by any column
         data_shuffled = self.netflix_data.sample(frac=1)
 

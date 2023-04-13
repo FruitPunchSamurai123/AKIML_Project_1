@@ -25,7 +25,8 @@ class NetflixReader:
     def set_data_split_ratio(self, new_split_ratios: dict):
         """
         Sets the split ratios for the data. Available keys are "train", "val" and "test". The sum of the values must be 1.
-        :param new_split_ratios: TODO
+        :param new_split_ratios: an array containing decimal values that specify on how
+        the data should be split.
         :return:
         """
         assert sum(new_split_ratios.values()) == 1, "The sum of the split ratios must be 1."
@@ -57,14 +58,16 @@ class NetflixReader:
 
     def _drop_missing_values(self):
         """
-        TODO
+        Deletes all rows with invalid values. These include rows with NaN values or
+        empty values.
         :return:
         """
         self.netflix_data = self.netflix_data_raw.dropna()
 
     def _set_types(self):
         """
-        TODO
+        Sets the type of each column to their correct type. The corresponding type
+        is specified under the _type_dict dictionary.
         :return:
         """
         self.netflix_data = self.netflix_data.astype(self._type_dict)
@@ -109,7 +112,7 @@ class NetflixReader:
     # Added comments manually.
     def _is_data_leakage(self):
         """
-        TODO
+        Checks if a data is appearing in multiple parts after split.
         :return:
         """
         # Create a set for each data frame with the id's of the rows

@@ -48,7 +48,7 @@ class NetflixReader:
 
     def write_netflix_data(self, file_path: str):
         """
-        Stores the test, train and validation dataframes in a pickle file.
+        Stores the test, train and validation dataframes in a pickle file each.
         :param file_path: the intended location where the pickle files will be placed
         :return:
         """
@@ -78,9 +78,10 @@ class NetflixReader:
 
     def _convert_list_to_bool(self, column_to_distribute: str):
         """
-        This function splits a column into multiple columns of each value in the dataframe. These columns
-        then contain only boolean values. if the previous row contained the specific value the new column will .
-        return true.
+        This function splits a column into multiple columns, each corresponding to a specific value of the original
+        column. These newly created columns contain only boolean values. If the previous row contained the specific
+        value of the newly created column, the new column will contain true in this row. Otherwise, it will contain
+        false.
         :param column_to_distribute: name of the column that should be split
         :return:
         """
@@ -112,7 +113,7 @@ class NetflixReader:
     # Added comments manually.
     def _is_data_leakage(self):
         """
-        Checks if a data is appearing in multiple parts after split.
+        Checks if the same data (row) is appearing in multiple parts after split.
         :return:
         """
         # Create a set for each data frame with the id's of the rows
@@ -123,7 +124,7 @@ class NetflixReader:
         # Get the intersection of all three sets
         overlap_ids = train_ids.intersection(val_ids).union(train_ids.intersection(test_ids))
 
-        # If there are any intersections i.e. overlapping id's, we have a data leakage
+        # If there are any intersections i.e., overlapping id's, we have data leakage
         self.data_leakage_warning = bool(overlap_ids)
 
         return self.data_leakage_warning

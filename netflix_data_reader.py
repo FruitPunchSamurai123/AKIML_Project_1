@@ -41,7 +41,7 @@ class NetflixReader:
         self._drop_missing_values()
         self._set_types()
         self.netflix_data.drop(columns="production_countries", inplace=True)
-        self._convert_list_do_bool("genres")
+        self._convert_list_to_bool("genres")
         self.netflix_data.drop(columns="genres", inplace=True)
         self._split_data()
         self.data_leakage_warning = self._is_data_leakage()
@@ -76,7 +76,7 @@ class NetflixReader:
     def _convert_string_to_list(str_list: str):
         pass
 
-    def _convert_list_do_bool(self, column_to_distribute: str):
+    def _convert_list_to_bool(self, column_to_distribute: str):
         """
         This function splits a column into multiple columns of each value in the dataframe. These columns
         then contain only boolean values. if the previous row contained the specific value the new column will .
